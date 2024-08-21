@@ -1,0 +1,13 @@
+import machine 
+from utime import sleep
+
+
+s0 = machine.Pin(27, machine.Pin.OUT)
+mux_in = machine.Pin(26, machine.Pin.IN, machine.Pin.PULL_DOWN)
+
+
+while True:
+  for selector_val in range(2):
+    s0.value(selector_val)
+    print(f'input: {mux_in.value()}')
+    sleep(1)
