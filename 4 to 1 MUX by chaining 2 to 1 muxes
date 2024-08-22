@@ -1,0 +1,19 @@
+import machine
+from utime import sleep
+
+
+s0 = machine.Pin(27, machine.Pin.OUT)
+mux_in = machine.Pin(26, machine.Pin.IN, machine.Pin.PULL_DOWN)
+
+
+prev_binary_code = 0
+while True:
+   binary_code = 0
+   for selector_val in range(2):
+       s0.value(selector_val % 2)
+       # (2^0  *input_0) + (2^1*  input_1) WAT?!?!
+       binary_code += (pow(2, selector_val) * mux_in.value())
+   if binary_code != prev_binary_code:
+       print(f'decimal representation: {binary_code}')
+       prev_binary_code = binary_code
+   sleep(0.100)
